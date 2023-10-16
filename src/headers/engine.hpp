@@ -19,5 +19,7 @@ namespace engine
     class window_e;
 }
 
+#include "shape.hpp"
+#include "rigid_body.hpp"
 #include "scene.hpp"
 #include "window.hpp"

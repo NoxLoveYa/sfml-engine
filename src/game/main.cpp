@@ -1,6 +1,6 @@
 //main to test the p100 code
 
-#include "headers/engine.hpp"
+#include "../headers/engine.hpp"
 
 void render(sf::RenderWindow &render_window)
 {
@@ -37,7 +37,7 @@ int main(void)
     scene_manager_e *scene_manager = window.get_scene_manager();
     scene_manager->add_scene(scene_e("Main menu", render, update));
     scene_manager->add_scene(scene_e("Second menu", render2, update));
-    scene_manager->set_current_scene("Second menu");
+    scene_manager->set_current_scene("Main menu");
 
     while (window.opened) {
         window.clear();
