@@ -9,5 +9,10 @@
 #include <string>
 #include <vector>
 
+#include <cassert>
+#include <cmath>
+
+#include "math.hpp"
+
 #include "scene.hpp"
 #include "window.hpp"

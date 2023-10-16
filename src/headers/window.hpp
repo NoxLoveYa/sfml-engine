@@ -4,27 +4,27 @@
 
 namespace engine
 {
-    class window
+    class window_e
     {
         public:
             //variables
             bool opened = true;
 
             //constructors
-            window(int width, int height)
+            window_e(int width, int height)
             {
                 this->width = width;
                 this->height = height;
                 this->init();
             }
 
-            window(std::string title)
+            window_e(std::string title)
             {
                 this->title = "My SMFL engine !!!";
                 this->init();
             }
 
-            window(int width, int height, std::string title)
+            window_e(int width, int height, std::string title)
             {
                 this->width = width;
                 this->height = height;
@@ -32,7 +32,7 @@ namespace engine
                 this->init();
             }
 
-            window(int width, int height, std::string title, int framerate)
+            window_e(int width, int height, std::string title, int framerate)
             {
                 this->width = width;
                 this->height = height;
@@ -58,7 +58,7 @@ namespace engine
             //variables
             sf::Clock delta_timer = sf::Clock();
 
-            scene_manager scene_manager;
+            scene_manager_e scene_manager;
             sf::RenderWindow render_window;
 
             //base variables
@@ -71,7 +71,5 @@ namespace engine
 
             //sfml variables
             int framerate = 60;
-
-            //functions
     };
 }

@@ -4,10 +4,11 @@
 
 int main(void)
 {
+
     using namespace engine;
 
-    window window(800, 600, "My SFML engine !!!");
-    
+    window_e window(800, 600, "My SFML engine !!!");
+
     while (window.opened) {
         window.clear();
         window.render();
