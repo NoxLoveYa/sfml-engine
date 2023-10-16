@@ -17,7 +17,7 @@ namespace engine
     {
         if (this->scene_manager.get_current_scene().get_name() == "null")
             return;
-        this->scene_manager.render(this->render_window);
+        this->scene_manager.render(*this);
         this->delta_time = this->delta_timer.restart().asSeconds();
     }
 }

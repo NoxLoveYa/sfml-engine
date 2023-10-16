@@ -9,6 +9,7 @@ namespace engine
         public:
             //variables
             bool opened = true;
+            sf::RenderWindow render_window;
 
             //constructors
             window_e(int width, int height)
@@ -48,6 +49,11 @@ namespace engine
             }
 
             //functions
+            scene_manager_e* get_scene_manager()
+            {
+                return &(this->scene_manager);
+            }
+
             void set_framerate(int framerate);
 
             void clear();
@@ -59,7 +65,6 @@ namespace engine
             sf::Clock delta_timer = sf::Clock();
 
             scene_manager_e scene_manager;
-            sf::RenderWindow render_window;
 
             //base variables
             int width = 800;

@@ -14,5 +14,10 @@
 
 #include "math.hpp"
 
+namespace engine
+{
+    class window_e;
+}
+
 #include "scene.hpp"
 #include "window.hpp"
