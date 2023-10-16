@@ -4,7 +4,10 @@
 
 int main(void)
 {
-    engine::window window(800, 600, "My SFML engine !!!");
+    using namespace engine;
+
+    window window(800, 600, "My SFML engine !!!");
+    
     while (window.opened) {
         window.clear();
         window.render();

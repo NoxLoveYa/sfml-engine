@@ -7,20 +7,8 @@ namespace engine
     class window
     {
         public:
-            //base variables
+            //variables
             bool opened = true;
-            
-            int width = 800;
-            int height = 600;
-            std::string title = "My SMFL engine !!!";
-
-            //game variables
-            float delta_time = 0.0f;
-
-            //sfml variables
-            int framerate = 60;
-
-            sf::RenderWindow render_window;
 
             //constructors
             window(int width, int height)
@@ -69,6 +57,21 @@ namespace engine
         private:
             //variables
             sf::Clock delta_timer = sf::Clock();
+
+            scene_manager scene_manager;
+            sf::RenderWindow render_window;
+
+            //base variables
+            int width = 800;
+            int height = 600;
+            std::string title = "My SMFL engine !!!";
+
+            //game variables
+            float delta_time = 0.0f;
+
+            //sfml variables
+            int framerate = 60;
+
             //functions
     };
 }

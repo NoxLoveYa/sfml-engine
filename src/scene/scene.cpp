@@ -1,0 +1,29 @@
+#include "../headers/engine.hpp"
+
+namespace engine
+{
+    void render(sf::RenderWindow &render_window)
+    {
+
+    }
+
+    void add_scene(scene scene)
+    {
+
+    }
+
+    void remove_scene(scene scene)
+    {
+
+    }
+
+    void set_current_scene(scene scene)
+    {
+
+    }
+
+    scene get_current_scene()
+    {
+        
+    }
+}

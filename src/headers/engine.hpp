@@ -9,4 +9,5 @@
 #include <string>
 #include <vector>
 
+#include "scene.hpp"
 #include "window.hpp"

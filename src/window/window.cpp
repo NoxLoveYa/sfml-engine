@@ -15,7 +15,7 @@ namespace engine
 
     void window::render()
     {
-        this->render_window.display(); 
+        this->scene_manager.render(this->render_window);
         this->delta_time = this->delta_timer.restart().asSeconds();
     }
 }
