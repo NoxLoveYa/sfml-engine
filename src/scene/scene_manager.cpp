@@ -5,22 +5,8 @@ namespace engine
     //scene_manager_e
     void scene_manager_e::render(window_e &window)
     {
-        this->current_scene.update(window);
-        this->current_scene.render(window.render_window);
-    }
-
-    scene_e scene_manager_e::get_current_scene()
-    {
-        return this->current_scene;
-    }
-
-    scene_e scene_manager_e::get_scene(std::string name)
-    {
-        for (auto scene : scenes) {
-            if (scene.get_name() == name)
-                return scene;
-        }
-        return scene_e();
+        this->current_scene.update(this->current_scene, window);
+        this->current_scene.render(this->current_scene, window.render_window);
     }
 
     //scene_e management

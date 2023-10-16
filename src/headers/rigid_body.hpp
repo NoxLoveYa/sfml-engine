@@ -9,10 +9,6 @@ namespace engine
         public:
             rigid_body_e(void)
             {
-                this->position = sf::Vector2f(0, 0);
-                this->velocity = sf::Vector2f(0, 0);
-                this->mass = 0;
-                this->draw_shape = nullptr;
             }
 
             rigid_body_e(sf::Vector2f position, sf::Vector2f velocity, float mass)
@@ -20,7 +16,6 @@ namespace engine
                 this->position = position;
                 this->velocity = velocity;
                 this->mass = mass;
-                this->draw_shape = nullptr;
             }
 
             rigid_body_e(sf::Vector2f position, sf::Vector2f velocity, float mass, sf::Shape *draw_shape)
@@ -29,8 +24,7 @@ namespace engine
                 this->velocity = velocity;
                 this->mass = mass;
 
-                this->draw_shape = (sf::Shape*)(sizeof(sf::Shape));
-                engine::shape::clone_shape(draw_shape, this->draw_shape);
+                this->draw_shape = draw_shape;
             }
 
             ~rigid_body_e(void)
@@ -66,11 +60,16 @@ namespace engine
             void apply_impulse(sf::Vector2f impulse);
 
             void update(void);
+            void render(sf::RenderWindow &window)
+            {
+                this->draw_shape->setPosition(this->position);
+                window.draw(*this->draw_shape);
+            }
 
         private:
-            sf::Vector2f position;
-            sf::Vector2f velocity;
-            float mass;
-            sf::Shape *draw_shape;
+            sf::Vector2f position = sf::Vector2f(0, 0);
+            sf::Vector2f velocity = sf::Vector2f(0, 0);
+            float mass = 0;
+            sf::Shape *draw_shape = nullptr;
     };
 }

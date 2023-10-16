@@ -21,5 +21,6 @@ namespace engine
 
 #include "shape.hpp"
 #include "rigid_body.hpp"
+
 #include "scene.hpp"
 #include "window.hpp"

@@ -7,6 +7,9 @@ namespace engine
     class scene_e
     {
         public:
+            //variables
+            std::vector<rigid_body_e> rigid_bodies = std::vector<rigid_body_e>();
+
             //constructors
             scene_e()
             {
@@ -18,13 +21,13 @@ namespace engine
                 this->name = name;
             }
 
-            scene_e(std::string name, std::function<void(sf::RenderWindow &)> render_function)
+            scene_e(std::string name, std::function<void(scene_e &, sf::RenderWindow &)> render_function)
             {
                 this->name = name;
                 this->render_function = render_function;
             }
 
-            scene_e(std::string name, std::function<void(sf::RenderWindow &)> render_function, std::function<void(window_e &window)> update_function)
+            scene_e(std::string name, std::function<void(scene_e &, sf::RenderWindow &)> render_function, std::function<void(scene_e &, window_e &window)> update_function)
             {
                 this->name = name;
                 this->render_function = render_function;
@@ -32,13 +35,13 @@ namespace engine
             }
 
             //functions
-            void render(sf::RenderWindow &render_window)
+            void render(scene_e &scene, sf::RenderWindow &render_window)
             {
-                this->render_function(render_window);
+                this->render_function(scene, render_window);
             }
-            void update(window_e &window)
+            void update(scene_e &scene, window_e &window)
             {
-                this->update_function(window);
+                this->update_function(scene, window);
             }
 
             void load()
@@ -51,6 +54,11 @@ namespace engine
             }
 
             std::string get_name();
+
+            void add_rigid_body(rigid_body_e rigid_body)
+            {
+                this->rigid_bodies.push_back(rigid_body);
+            }
 
             //constructors
 
@@ -70,10 +78,10 @@ namespace engine
 
         private:
             //variables
-            std::string name;
+            std::string name = "null";
 
-            std::function<void(sf::RenderWindow &)> render_function;
-            std::function<void(window_e &)> update_function;
+            std::function<void(scene_e &, sf::RenderWindow &)> render_function;
+            std::function<void(scene_e &, window_e &)> update_function;
             std::function<void()> load_function;
             std::function<void()> clear_function;
     };
@@ -90,26 +98,34 @@ namespace engine
             //functions
             void render(window_e &window);
 
+            void add_rigid_body(rigid_body_e rigid_body)
+            {
+                this->current_scene.add_rigid_body(rigid_body);
+            }
+
             void add_scene(scene_e scene);
 
             void remove_scene(scene_e scene);
 
             void set_current_scene(std::string name);
 
-            scene_e get_current_scene();
+            scene_e get_current_scene()
+            {
+                return this->current_scene;
+            }
 
-            scene_e get_scene(std::string name);
+            scene_e get_scene(std::string name)
+            {
+                for (auto scene : scenes) {
+                    if (scene.get_name() == name)
+                        return scene;
+                }
+                return scene_e();
+            }
 
             std::vector<scene_e> &get_scenes()
             {
                 return this->scenes;
-            }
-
-            void print_scenes()
-            {
-                for (auto scene : this->scenes) {
-                    printf("Scene %s\n", scene.get_name().c_str());
-                }
             }
 
         private:
