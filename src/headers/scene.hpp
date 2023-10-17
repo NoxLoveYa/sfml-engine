@@ -24,14 +24,33 @@ namespace engine
             scene_e(std::string name, std::function<void(scene_e &, sf::RenderWindow &)> render_function)
             {
                 this->name = name;
-                this->render_function = render_function;
+                this->set_render_function(render_function);
             }
 
             scene_e(std::string name, std::function<void(scene_e &, sf::RenderWindow &)> render_function, std::function<void(scene_e &, window_e &window)> update_function)
             {
                 this->name = name;
-                this->render_function = render_function;
-                this->update_function = update_function;
+                this->set_render_function(render_function);
+                this->set_update_function(update_function);
+            }
+
+            scene_e(std::string name, std::function<void(scene_e &, sf::RenderWindow &)> render_function, std::function<void(scene_e &, window_e &window)> update_function,
+            std::function<void(scene_e &)> load_function)
+            {
+                this->name = name;
+                this->set_render_function(render_function);
+                this->set_update_function(update_function);
+                this->set_load_function(load_function);
+            }
+
+            scene_e(std::string name, std::function<void(scene_e &, sf::RenderWindow &)> render_function, std::function<void(scene_e &, window_e &window)> update_function,
+            std::function<void(scene_e &)> load_function, std::function<void(scene_e &)> clear_function)
+            {
+                this->name = name;
+                this->set_render_function(render_function);
+                this->set_update_function(update_function);
+                this->set_load_function(load_function);
+                this->set_clear_function(clear_function);
             }
 
             //functions
@@ -44,25 +63,47 @@ namespace engine
                 this->update_function(scene, window);
             }
 
-            void load()
+            void load(scene_e &scene)
             {
-                this->load_function();
+                this->load_function(scene);
             }
-            void clear()
+            void clear(scene_e &scene)
             {
-                this->clear_function();
+                this->clear_function(scene);
+            }
+
+            void set_render_function(std::function<void(scene_e &, sf::RenderWindow &)> func)
+            {
+                this->render_function = func;
+            }
+
+            void set_update_function(std::function<void(scene_e &, window_e &)> func)
+            {
+                this->update_function = func;
+            }
+
+            void set_load_function(std::function<void(scene_e &)> func)
+            {
+                this->load_function = func;
+            }
+
+            std::function<void(scene_e &)> get_load_function()
+            {
+                return this->load_function;
+            }
+
+            void set_clear_function(std::function<void(scene_e &)> func)
+            {
+                this->clear_function = func;
             }
 
             std::string get_name();
 
-            void add_rigid_body(rigid_body_e rigid_body)
+            rigid_body_e *add_rigid_body(rigid_body_e rigid_body)
             {
                 this->rigid_bodies.push_back(rigid_body);
+                return &this->rigid_bodies.back();
             }
-
-            //constructors
-
-            //variables
 
             //overloads
             //==
@@ -80,57 +121,9 @@ namespace engine
             //variables
             std::string name = "null";
 
-            std::function<void(scene_e &, sf::RenderWindow &)> render_function;
-            std::function<void(scene_e &, window_e &)> update_function;
-            std::function<void()> load_function;
-            std::function<void()> clear_function;
-    };
-
-    class scene_manager_e
-    {
-        public:
-            //constructors
-            scene_manager_e()
-            {
-                this->current_scene = scene_e();
-            }
-
-            //functions
-            void render(window_e &window);
-
-            void add_rigid_body(rigid_body_e rigid_body)
-            {
-                this->current_scene.add_rigid_body(rigid_body);
-            }
-
-            void add_scene(scene_e scene);
-
-            void remove_scene(scene_e scene);
-
-            void set_current_scene(std::string name);
-
-            scene_e get_current_scene()
-            {
-                return this->current_scene;
-            }
-
-            scene_e get_scene(std::string name)
-            {
-                for (auto scene : scenes) {
-                    if (scene.get_name() == name)
-                        return scene;
-                }
-                return scene_e();
-            }
-
-            std::vector<scene_e> &get_scenes()
-            {
-                return this->scenes;
-            }
-
-        private:
-            //variables
-            std::vector<scene_e> scenes;
-            scene_e current_scene;
+            std::function<void(scene_e &, sf::RenderWindow &)> render_function = nullptr;
+            std::function<void(scene_e &, window_e &)> update_function = nullptr;
+            std::function<void(scene_e &)> load_function = nullptr;
+            std::function<void(scene_e &)> clear_function = nullptr;
     };
 }

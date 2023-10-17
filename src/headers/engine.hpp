@@ -17,10 +17,17 @@
 namespace engine
 {
     class window_e;
+
+    class scene_manager_e;
+    class scene_e;
+
+    class rigid_body_e;
 }
 
 #include "shape.hpp"
 #include "rigid_body.hpp"
 
 #include "scene.hpp"
+#include "scene_manager.hpp"
+
 #include "window.hpp"

@@ -9,6 +9,9 @@ namespace engine
         public:
             //variables
             bool opened = true;
+            
+            float delta_time = 0.0f;
+
             sf::RenderWindow render_window;
 
             //constructors
@@ -72,7 +75,6 @@ namespace engine
             std::string title = "My SMFL engine !!!";
 
             //game variables
-            float delta_time = 0.0f;
 
             //sfml variables
             int framerate = 60;

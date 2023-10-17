@@ -24,6 +24,8 @@ namespace engine
     void scene_manager_e::set_current_scene(std::string name)
     {
         this->current_scene = this->get_scene(name);
+        if (this->current_scene.get_load_function() != nullptr)
+            this->current_scene.load(this->current_scene);
         printf("Current scene set to %s\n", this->current_scene.get_name().c_str());
     }
 }

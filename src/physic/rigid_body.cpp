@@ -4,7 +4,9 @@ namespace engine
 {
     void rigid_body_e::apply_force(sf::Vector2f force)
     {
-        this->velocity += (force / this->mass);
+        if (this->friction != 0.0f)
+            force /= this->friction;
+        this->velocity += (force);
     }
 
     void rigid_body_e::apply_impulse(sf::Vector2f impulse)
@@ -12,8 +14,9 @@ namespace engine
         this->velocity += impulse;
     }
 
-    void rigid_body_e::update(void)
+    void rigid_body_e::update(float delta_time)
     {
-        this->position += this->velocity;
+        this->position += (this->velocity * delta_time);
+        this->velocity /= 1.1f;
     }
 }
