@@ -54,6 +54,17 @@ namespace engine
             {
                 rigid_body.update(window.delta_time, &scene);
             }
+
+
+            //rotate the player towards the mouse
+            sf::Vector2i mouse_pos = sf::Mouse::getPosition(window.render_window);
+            sf::Vector2f player_pos = local_player->get_position();
+            float dx = mouse_pos.x - player_pos.x;
+            float dy = mouse_pos.y - player_pos.y;
+            float rotation = (std::atan2(dy, dx) * (180 / M_PI)) - 280.f;
+
+            sf::Shape *lp_shape =  local_player->get_draw_shape();
+            lp_shape->setRotation(rotation);
         }
 
         void load(scene_e &scene)
@@ -62,9 +73,11 @@ namespace engine
             shape_test->setFillColor(sf::Color::White);
             sf::Shape *shape_test2 = new sf::RectangleShape(sf::Vector2f(100.f, 100.f));
             shape_test->setFillColor(sf::Color::White);
+            sf::FloatRect bounds = shape_test->getLocalBounds();
+            shape_test->setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
             scene.add_rigid_body(rigid_body_e(sf::Vector2f(100.f, 100.f), sf::Vector2f(0, 0), 9.8f, 1.1f, shape_test2, true));
-            local_player = scene.add_rigid_body(rigid_body_e(sf::Vector2f(200.f, 200.f), sf::Vector2f(0, 0), 9.8f, 1.1f, shape_test, true));
+            local_player = scene.add_rigid_body(rigid_body_e(sf::Vector2f(300.f, 200.f), sf::Vector2f(0, 0), 9.8f, 1.1f, shape_test, true));
             
             printf("scene.rigid_bodies.size() = %lu\n", scene.rigid_bodies.size());
         }

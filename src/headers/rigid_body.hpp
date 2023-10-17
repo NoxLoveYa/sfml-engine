@@ -91,9 +91,9 @@ namespace engine
                 return this->can_collide;
             }
 
-            sf::FloatRect get_draw_bounds(void)
+            sf::Shape *get_draw_shape(void)
             {
-                return this->draw_shape->getGlobalBounds();
+                return this->draw_shape;
             }
 
             void apply_force(sf::Vector2f force);
