@@ -54,6 +54,23 @@ namespace engine
             }
 
             //functions
+            rigid_body_e *add_rigid_body(rigid_body_e rigid_body)
+            {
+                this->rigid_bodies.push_back(rigid_body);
+                return &this->rigid_bodies.back();
+            }
+
+            std::vector<rigid_body_e*> get_rigid_bodies()
+            {
+                std::vector<rigid_body_e*> rigid_bodies = std::vector<rigid_body_e*>();
+
+                for (auto &rigid_body : this->rigid_bodies)
+                {
+                    rigid_bodies.push_back(&rigid_body);
+                }
+                return rigid_bodies;
+            }
+
             void render(scene_e &scene, sf::RenderWindow &render_window)
             {
                 this->render_function(scene, render_window);
@@ -87,23 +104,17 @@ namespace engine
                 this->load_function = func;
             }
 
-            std::function<void(scene_e &)> get_load_function()
-            {
-                return this->load_function;
-            }
-
             void set_clear_function(std::function<void(scene_e &)> func)
             {
                 this->clear_function = func;
             }
 
-            std::string get_name();
-
-            rigid_body_e *add_rigid_body(rigid_body_e rigid_body)
+            std::function<void(scene_e &)> get_load_function()
             {
-                this->rigid_bodies.push_back(rigid_body);
-                return &this->rigid_bodies.back();
+                return this->load_function;
             }
+
+            std::string get_name();
 
             //overloads
             //==

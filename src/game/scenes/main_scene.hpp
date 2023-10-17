@@ -52,7 +52,7 @@ namespace engine
 
             for (auto &rigid_body : scene.rigid_bodies)
             {
-                rigid_body.update(window.delta_time);
+                rigid_body.update(window.delta_time, &scene);
             }
         }
 
@@ -60,7 +60,13 @@ namespace engine
         {
             sf::Shape *shape_test = new sf::CircleShape (50, 3);
             shape_test->setFillColor(sf::Color::White);
-            local_player = scene.add_rigid_body(rigid_body_e(sf::Vector2f(100.f, 100.f), sf::Vector2f(0, 0), 9.8f, 1.1f, shape_test));
+            sf::Shape *shape_test2 = new sf::RectangleShape(sf::Vector2f(100.f, 100.f));
+            shape_test->setFillColor(sf::Color::White);
+
+            scene.add_rigid_body(rigid_body_e(sf::Vector2f(100.f, 100.f), sf::Vector2f(0, 0), 9.8f, 1.1f, shape_test2, true));
+            local_player = scene.add_rigid_body(rigid_body_e(sf::Vector2f(200.f, 200.f), sf::Vector2f(0, 0), 9.8f, 1.1f, shape_test, true));
+            
+            printf("scene.rigid_bodies.size() = %lu\n", scene.rigid_bodies.size());
         }
     }
 }
