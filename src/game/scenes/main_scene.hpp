@@ -55,7 +55,6 @@ namespace engine
                 rigid_body.update(window.delta_time, &scene);
             }
 
-
             //rotate the player towards the mouse
             sf::Vector2i mouse_pos = sf::Mouse::getPosition(window.render_window);
             sf::Vector2f player_pos = local_player->get_position();

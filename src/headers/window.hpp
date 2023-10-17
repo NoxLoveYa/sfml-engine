@@ -27,6 +27,18 @@ namespace engine
                 this->title = "My SMFL engine !!!";
                 this->init();
             }
+            
+            window_e(std::string title, int framerate, bool fullscreen)
+            {
+                this->title = title;
+                this->framerate = framerate;
+                std::vector<sf::VideoMode> video_mode = sf::VideoMode::getFullscreenModes();
+                if (video_mode.size() > 0)
+                {
+                    this->render_window.create(video_mode[0], this->title, sf::Style::Fullscreen);
+                    this->render_window.setFramerateLimit(this->framerate);
+                }
+            }
 
             window_e(int width, int height, std::string title)
             {
